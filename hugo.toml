@@ -1,0 +1,50 @@
+baseURL = "https://elmx617.github.io/"
+locale = "zh-CN"
+defaultContentLanguage = "zh"
+title = "日子慢慢"
+theme = "diary"
+timeZone = "Asia/Shanghai"
+hasCJKLanguage = true
+enableRobotsTXT = true
+summaryLength = 90
+copyright = "ElmX617 · 记录平凡日子的光"
+
+[pagination]
+  pagerSize = 10
+
+[params]
+  subtitle = "把生活写下来，让平凡的日子有迹可循。"
+  description = "ElmX617 的生活日记，记录日常、心情与值得记住的小事。"
+  enableGitalk = false
+  enableGiscus = false
+  enableOpenGraph = true
+  enableTwitterCards = false
+  disableToC = true
+  favicon = "favicon.svg"
+
+[taxonomies]
+  tag = "tags"
+  category = "categories"
+
+[[menus.main]]
+  name = "日记日历"
+  url = "/calendar/"
+  weight = 1
+[[menus.main]]
+  name = "所有日记"
+  url = "/posts/"
+  weight = 2
+[[menus.main]]
+  name = "标签"
+  url = "/tags/"
+  weight = 3
+[[menus.main]]
+  name = "关于这里"
+  url = "/about/"
+  weight = 4
+
+[markup.highlight]
+  style = "friendly"
+
+[outputs]
+  home = ["HTML", "RSS"]

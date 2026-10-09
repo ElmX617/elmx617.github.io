@@ -1,0 +1,25 @@
+{{ define "main" }}
+<div class="diary-page">
+  <header class="diary-page-heading"><p class="diary-eyebrow">ElmX617 的生活日记</p><h1>日子慢慢，记忆长长。</h1><p>记下生活里的小事，也留住此刻的心情。</p></header>
+  {{ partial "diary-calendar.html" . }}
+  <div class="diary-recent-heading"><h2>最近写下</h2><a href="{{ "posts/" | relURL }}">所有日记 →</a></div>
+</div>
+<div class="post-list-container post-list-container-no-background diary-recent-list">
+  {{ $posts := where (where .Site.RegularPages "Section" "posts") "Params.hidden" "ne" true }}
+  {{ $paginator := .Paginate $posts.ByDate.Reverse }}
+  {{ range $paginator.Pages }}
+  <a href="{{ .RelPermalink }}" class="a-block">
+    <div class="post-item-wrapper"><div class="post-item post-item-no-divider">
+      <div class="post-item-info-wrapper"><div class="post-item-title">{{ .Title }}</div><div class="post-item-summary">{{ .Description | default .Summary }}</div>{{ partial "post-item-meta.html" . }}</div>
+      {{ $page := . }}
+      {{ with .Params.featured_image }}
+      {{ $image := $page.Resources.GetMatch . }}
+      {{ $url := . | absURL }}
+      {{ with $image }}{{ $url = (.Resize "690x360").RelPermalink }}{{ end }}
+      <div class="post-item-image-wrapper"><div class="post-item-image" style="background-image: url('{{ $url }}')"></div></div>
+      {{ end }}
+    </div></div>
+  </a>
+  {{ else }}<p class="diary-empty">日记本还是空的，第一篇就从今天开始吧。</p>{{ end }}
+</div>
+{{ end }}

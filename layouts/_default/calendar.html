@@ -1,0 +1,7 @@
+{{ define "main" }}
+<div class="diary-page">
+  <header class="diary-page-heading"><p class="diary-eyebrow">生活的每一页</p><h1>日记日历</h1><p>有圆点的日子，藏着一篇记录。点开看看那天的生活。</p></header>
+  {{ partial "diary-calendar.html" . }}
+  <a class="diary-archive-link" href="{{ "posts/" | relURL }}">查看所有日记 →</a>
+</div>
+{{ end }}

@@ -1,0 +1,31 @@
+{{- $entries := slice -}}
+{{- $posts := where (where .Site.RegularPages "Section" "posts") "Params.hidden" "ne" true -}}
+{{- range $posts.ByDate.Reverse -}}
+  {{- $entries = $entries | append (dict "date" (.Date.Format "2006-01-02") "title" .Title "url" .RelPermalink "description" (.Description | default "")) -}}
+{{- end -}}
+<section class="diary-calendar" data-diary-calendar aria-label="日记日历" v-pre>
+  <div class="diary-calendar-heading">
+    <div><p class="diary-eyebrow">一日一页 · 慢慢记录</p><h2>翻开日历</h2></div>
+    <span class="diary-total">{{ len $entries }} 篇日记</span>
+  </div>
+  <div class="diary-calendar-layout">
+    <div class="diary-month">
+      <div class="diary-month-nav">
+        <button type="button" data-prev aria-label="上个月">‹</button>
+        <h3 data-month-label aria-live="polite"></h3>
+        <button type="button" data-next aria-label="下个月">›</button>
+      </div>
+      <div class="diary-week" aria-hidden="true"><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span><span>日</span></div>
+      <div class="diary-days" data-days role="group" aria-label="选择日期"></div>
+      <div class="diary-calendar-tools"><label>跳到 <input type="month" data-month-input aria-label="跳转到指定月份" min="1900-01" max="9999-12"></label><button type="button" data-today>回到本月</button></div>
+      <p class="diary-legend"><span class="diary-dot"></span> 有日记 <span class="diary-today-sample"></span> 今天</p>
+    </div>
+    <div class="diary-day-panel" aria-live="polite" aria-atomic="true">
+      <p class="diary-eyebrow" data-selected-date></p>
+      <div data-day-entries></div>
+      <p class="diary-month-summary" data-month-summary></p>
+    </div>
+  </div>
+  <script type="application/json" data-calendar-entries>{{ $entries | jsonify | safeJS }}</script>
+  <noscript><p>开启 JavaScript 可以使用日历；也可以到<a href="{{ "posts/" | relURL }}">所有日记</a>按日期浏览文章。</p></noscript>
+</section>

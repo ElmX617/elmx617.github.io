@@ -4,6 +4,8 @@ defaultContentLanguage = "zh"
 title = "日子慢慢"
 theme = "diary"
 timeZone = "Asia/Shanghai"
+# Non-draft diary entries publish on commit, even when their timestamp is later today.
+buildFuture = true
 hasCJKLanguage = true
 enableRobotsTXT = true
 summaryLength = 90
